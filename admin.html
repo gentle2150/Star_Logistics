@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Admin dashboard | Star Logistics{% endblock %}
+{% block content %}
+<div class="admin-top"><div><div class="eyebrow">CONTROL CENTRE</div><h1>Shipment dashboard</h1></div><a class="text-link" href="{{ url_for('admin_logout') }}">Log out</a></div>
+<section class="panel"><h2>Create a shipment</h2>
+<form class="admin-form" method="post" action="{{ url_for('create_shipment') }}">
+<label>Tracking number<input name="tracking_number" placeholder="STAR000000001" required></label>
+<label>Recipient<input name="recipient" required></label>
+<label>Courier<select name="courier"><option>Star Logistics</option><option>FedEx</option></select></label>
+<label>Starting status<select name="status">{% for s in statuses %}<option>{{ s }}</option>{% endfor %}</select></label>
+<label>Origin<input name="origin" placeholder="Abuja, Nigeria"></label>
+<label>Destination<input name="destination" placeholder="Lagos, Nigeria"></label>
+<label>Current location<input name="location" placeholder="Current location"></label>
+<label>Notes<input name="notes" placeholder="Optional notes"></label>
+<button class="full-button">Create shipment</button>
+</form></section>
+<section class="panel"><h2>Update a shipment</h2><form class="admin-form" method="post" action="{{ url_for('update_shipment') }}">
+<label>Tracking number<input name="tracking_number" required placeholder="Existing tracking number"></label>
+<label>New status<select name="status">{% for s in statuses %}<option>{{ s }}</option>{% endfor %}</select></label>
+<label>Current location<input name="location" placeholder="e.g. Kaduna, Nigeria"></label>
+<label>Update details<input name="details" placeholder="What happened at this step?"></label>
+<button class="full-button">Save update</button></form></section>
+<section class="panel"><h2>All shipments <span class="count">{{ shipments|length }}</span></h2>
+<div class="table-wrap"><table><thead><tr><th>Tracking number</th><th>Recipient</th><th>Status</th><th>Location</th><th>Updated</th></tr></thead><tbody>
+{% for s in shipments %}<tr><td><a href="{{ url_for('track', tracking_number=s.tracking_number) }}">{{ s.tracking_number }}</a></td><td>{{ s.recipient }}</td><td>{{ s.status }}</td><td>{{ s.location or "—" }}</td><td>{{ s.updated_at }}</td></tr>{% else %}<tr><td colspan="5">No shipments yet.</td></tr>{% endfor %}
+</tbody></table></div></section>
+{% endblock %}

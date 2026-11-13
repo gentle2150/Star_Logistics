@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{{ shipment.tracking_number }} | Star Logistics{% endblock %}
+{% block content %}
+<a class="back-link" href="{{ url_for('home') }}">← Back to tracking</a>
+<section class="page-heading"><div class="eyebrow">SHIPMENT DETAILS</div><h1>Tracking <span class="tracking-code">{{ shipment.tracking_number }}</span></h1><p>Courier: {{ shipment.courier }}</p></section>
+<section class="status-card">
+  <div><div class="muted">CURRENT STATUS</div><h2>{{ shipment.status }}</h2><p>Last recorded location: <strong>{{ shipment.location or "Not yet recorded" }}</strong></p></div>
+  <div class="status-pill">{{ shipment.status }}</div>
+</section>
+<div class="route-grid">
+  <div class="route-card"><small>FROM</small><strong>{{ shipment.origin or "Not provided" }}</strong></div>
+  <div class="route-card"><small>TO</small><strong>{{ shipment.destination or "Not provided" }}</strong></div>
+</div>
+<section class="panel"><h2>Shipment history</h2>
+  {% if events %}
+  <div class="timeline">
+    {% for event in events %}
+    <div class="timeline-item"><span class="timeline-dot"></span><div><strong>{{ event.status }}</strong><p>{{ event.details or "" }}</p><small>{{ event.location or "Location not recorded" }} · {{ event.created_at }}</small></div></div>
+    {% endfor %}
+  </div>
+  {% else %}<p>No tracking events have been recorded yet.</p>{% endif %}
+</section>
+{% if live_message %}<div class="notice">{{ live_message }} Live carrier data is not being displayed until the official API connection is completed.</div>{% endif %}
+{% endblock %}

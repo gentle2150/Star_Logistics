@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Track a package | Star Logistics{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="eyebrow">SHIP WITH CONFIDENCE</div>
+  <h1>Your package.<br><span>Every step of the way.</span></h1>
+  <p class="hero-copy">Enter your tracking number to view the latest shipment status and delivery history.</p>
+  <form class="track-form" method="post">
+    <label for="tracking_number">Tracking number</label>
+    <div class="input-row"><input id="tracking_number" name="tracking_number" placeholder="e.g. STAR123456789" required><button>Track package →</button></div>
+  </form>
+  <p class="hint">Try the sample number: <strong>STAR123456789</strong></p>
+</section>
+<section class="feature-grid">
+  <article><span>01</span><h3>Clear updates</h3><p>Follow each recorded shipment milestone.</p></article>
+  <article><span>02</span><h3>Simple tracking</h3><p>One tracking number gives you the shipment history.</p></article>
+  <article><span>03</span><h3>Courier-ready</h3><p>Designed to support approved courier API connections.</p></article>
+</section>
+<div class="notice"><strong>Demo mode:</strong> This starter site uses sample and administrator-entered shipment data. Live FedEx updates require approved FedEx API credentials and a completed API integration.</div>
+{% endblock %}
